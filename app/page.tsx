@@ -1,38 +1,34 @@
 import Footer from "@/components/footer";
 import Image from "next/image";
 import classNames from "classnames";
+import { client } from "@/sanity/lib/client";
+import { groq } from "next-sanity";
+import { Bugs } from "@/sanity.types";
+// import { urlFor } from "@/sanity/lib/image";
 
-const data = [
-  {
-    id: "1",
-    name: "",
-    scientificName: "",
-    location: "",
-    imageUrl: "",
-    alt: "",
-    notes: "",
-  },
-  {
-    id: "2",
-    name: "",
-    scientificName: "",
-    location: "",
-    imageUrl: "",
-    alt: "",
-    notes: "",
-  },
-  {
-    id: "3",
-    name: "",
-    scientificName: "",
-    location: "",
-    imageUrl: "",
-    alt: "",
-    notes: "",
-  },
-];
+type contentType = Bugs;
 
-export default function Home() {
+export default async function Home() {
+  const bugsData = await client.fetch(
+    groq`
+    *[ _type == 'bugs'] {
+        _createdAt,
+        _id,
+        _type,
+        _updatedAt,
+        class,
+        family,
+        location,
+        "imageUrl": media.asset->url,
+        name,
+        scientificName,
+        body
+    }
+    `
+  );
+
+  console.log(bugsData, "bugContent");
+
   return (
     <div
     //  className="font-[family-name:var(--font-rubik)]"
@@ -55,8 +51,8 @@ export default function Home() {
         </div>
         <div className="gallery p-8">
           <div className="grid grid-cols-3 gap-8">
-            {data.map((block) => {
-              return <ImageBlock key={block.id} />;
+            {bugsData.map((content: contentType) => {
+              return <ContentBlock key={content._id} content={content} />;
             })}
           </div>
         </div>
@@ -66,17 +62,36 @@ export default function Home() {
   );
 }
 
-function ImageBlock() {
+function ContentBlock({ content }: { content: contentType }) {
+  // const imageUrl = urlFor(Image);
+
   return (
     <div>
-      <div className="">dfwefew</div>
-      <Image
-        className="rounded-xl aspect-square"
-        src="/images/mantis.jpeg"
-        alt="matis"
-        width={500}
-        height={500}
-      />
+      <div className="">
+        <p>Name</p>
+        <p>{content.name}</p>
+      </div>
+
+      <div>
+        <div className="">
+          <p>Scientific Name</p>
+          <p>{content.scientificName}</p>
+        </div>
+        <div className="">
+          <p>Location</p>
+          <p>{content.location}</p>
+        </div>
+      </div>
+
+      {/*{content.media && (
+        <Image
+          className="rounded-xl aspect-square"
+          src={imageUrl}
+          alt="matis"
+          width={500}
+          height={500}
+        />
+      )} */}
     </div>
   );
 }
