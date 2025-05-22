@@ -1,9 +1,9 @@
 import Footer from "@/components/footer";
-import Image from "next/image";
 import classNames from "classnames";
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { Bugs } from "@/sanity.types";
+import Image from "next/image";
 // import { urlFor } from "@/sanity/lib/image";
 
 type contentType = Bugs;
@@ -24,7 +24,7 @@ export default async function Home() {
         scientificName,
         body
     }
-    `
+    `,
   );
 
   console.log(bugsData, "bugContent");
@@ -34,12 +34,12 @@ export default async function Home() {
     //  className="font-[family-name:var(--font-rubik)]"
     >
       <main>
-        <div className="hero bg-stone500 h-full min-h-[95vh] p-8 text-darkgrey500 text-2xl leading-[1.1] grid grid-cols-6 gap-4">
+        <div className="hero bg-stone500 text-darkgrey500 grid h-full min-h-[95vh] grid-cols-6 gap-4 p-8 text-2xl leading-[1.1]">
           <p
             className={classNames(
               "col-span-6",
               "sm:col-span-4",
-              "lg:col-span-3"
+              "lg:col-span-3",
             )}
           >
             Hello there fellow <em>entosiast</em>*!
@@ -66,22 +66,59 @@ function ContentBlock({ content }: { content: contentType }) {
   // const imageUrl = urlFor(Image);
 
   return (
-    <div>
-      <div className="">
-        <p>Name</p>
-        <p>{content.name}</p>
+    <div className="relative h-full w-full">
+      <div className="text-layer absolute top-0 left-0 flex h-full flex-col justify-between p-4 uppercase">
+        <div>
+          <p className="text-xs">Name</p>
+          <p className="text-5xl leading-11 font-bold tracking-tight">
+            {content.name}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-3 gap-6">
+          <div className="col-span-2 last:pb-0 [&>div]:pb-4">
+            <div>
+              <p className="text-xs">Scientific Name</p>
+              <p className="text-3xl leading-7 font-bold tracking-tight">
+                {content.scientificName}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs">Location</p>
+              <p className="text-3xl leading-7 font-bold tracking-tight">
+                {content.scientificName}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs">Notes</p>
+              <p className="text-xs leading-6 tracking-tight capitalize not-even:font-bold">
+                {content.scientificName}
+              </p>
+            </div>
+          </div>
+          {/* <div className="">
+          <p>Family</p>
+          <p>{content.family?.map()}</p>
+        </div> */}
+          {/* {content.location && (
+            <div className="">
+              <p className="text-xs">Location</p>
+              {content.location.map((loc) => {
+                console.log(loc, "LOCK");
+                return <p key={loc._key}></p>;
+              })}
+            </div>
+          )} */}
+        </div>
       </div>
 
-      <div>
-        <div className="">
-          <p>Scientific Name</p>
-          <p>{content.scientificName}</p>
-        </div>
-        <div className="">
-          <p>Location</p>
-          <p>{content.location}</p>
-        </div>
-      </div>
+      <Image
+        className="rounded-lg"
+        src="/images/mantis2.png"
+        alt=""
+        width={500}
+        height={500}
+      />
 
       {/*{content.media && (
         <Image

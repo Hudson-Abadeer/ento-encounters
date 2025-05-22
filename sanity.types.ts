@@ -74,9 +74,18 @@ export type Slug = {
   source?: string;
 };
 
-export type Family = {
+export type Locations = {
   _id: string;
-  _type: "family";
+  _type: "locations";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  location?: string;
+};
+
+export type Families = {
+  _id: string;
+  _type: "families";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -96,9 +105,16 @@ export type Bugs = {
     _type: "reference";
     _weak?: boolean;
     _key: string;
-    [internalGroqTypeReferenceTo]?: "family";
+    [internalGroqTypeReferenceTo]?: "families";
   }>;
   class?: string;
+  location?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "locations";
+  }>;
   media?: {
     asset?: {
       _ref: string;
@@ -188,5 +204,5 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | Family | Bugs | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | Locations | Families | Bugs | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
