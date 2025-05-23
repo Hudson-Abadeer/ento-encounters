@@ -83,45 +83,47 @@ function ContentBlock({ content }: { content: contentType }) {
     <div className="@container relative w-full">
       <div
         className={classNames(
-          "text-layer absolute top-0 left-0 flex h-full flex-col justify-between p-4 leading-[0.8] uppercase",
-          "text-3xl @xs:text-5xl",
+          "info-layer text-layer absolute top-0 left-0 flex h-full flex-col justify-between p-4 leading-[0.8] uppercase",
         )}
       >
         <div>
           <p className="text-xs">Name</p>
-          <p className={classNames("leading-[0.8] font-bold tracking-tight")}>
+          <p
+            className={classNames(
+              "leading-[0.8] font-bold tracking-tight",
+              "text-3xl @sm:text-5xl",
+            )}
+          >
             {content.name}
           </p>
         </div>
 
-        {/* <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2 last:pb-0 [&>div]:pb-4">
             <div>
-              <p className="text-xs">Scientific Name</p>
+              <p className="text-xs leading-[1.5]">Scientific Name</p>
               <p
                 className={classNames(
-                  "text-3xl leading-7 font-bold tracking-tight",
-                  "md:text-xl",
-                  "lg:text-3xl",
+                  "leading-[0.8] font-bold tracking-tight",
+                  "text-2xl @sm:text-3xl",
                 )}
               >
                 {content.scientificName}
               </p>
             </div>
             <div>
-              <p className="text-xs">Location</p>
-              <p className="text-3xl leading-7 font-bold tracking-tight">
-                {content.scientificName}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs">Notes</p>
-              <p className="text-xs leading-6 tracking-tight capitalize not-even:font-bold">
+              <p className="text-xs leading-[1.5]">Location</p>
+              <p
+                className={classNames(
+                  "leading-[0.8] font-bold tracking-tight",
+                  "text-2xl @sm:text-3xl",
+                )}
+              >
                 {content.scientificName}
               </p>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
 
       <Image
