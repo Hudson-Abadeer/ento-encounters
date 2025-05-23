@@ -45,10 +45,27 @@ export const bugs = defineType({
       type: "image",
     }),
     defineField({
+      title: "Size",
+      name: "size",
+      type: "array",
+      initialValue: ["small"],
+      of: [{ type: "string" }],
+      options: {
+        layout: "grid",
+        direction: "horizontal",
+        list: [
+          { title: "Small", value: "small" },
+          { title: "Medium", value: "medium" },
+          { title: "Large", value: "Large" },
+        ],
+      },
+    }),
+    defineField({
       title: "Notes",
       name: "body",
       type: "array",
       of: [{ type: "block" }],
     }),
   ],
+  // initialValue: { size: { title: "small" } },
 });

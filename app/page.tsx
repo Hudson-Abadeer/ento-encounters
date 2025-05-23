@@ -50,9 +50,23 @@ export default async function Home() {
           </p>
         </div>
         <div className="gallery p-8">
-          <div className="grid grid-cols-3 gap-8">
+          <div
+            className={classNames(
+              "mx-auto grid w-full grid-cols-1 gap-8",
+              "sm:grid-cols-2",
+              // "lg:grid-cols-3",
+              "xl:grid-cols-3",
+            )}
+          >
             {bugsData.map((content: contentType) => {
-              return <ContentBlock key={content._id} content={content} />;
+              return (
+                <div
+                  className="flex items-center justify-center"
+                  key={content._id}
+                >
+                  <ContentBlock content={content} />
+                </div>
+              );
             })}
           </div>
         </div>
@@ -66,20 +80,31 @@ function ContentBlock({ content }: { content: contentType }) {
   // const imageUrl = urlFor(Image);
 
   return (
-    <div className="relative h-full w-full">
-      <div className="text-layer absolute top-0 left-0 flex h-full flex-col justify-between p-4 uppercase">
+    <div className="@container relative w-full">
+      <div
+        className={classNames(
+          "text-layer absolute top-0 left-0 flex h-full flex-col justify-between p-4 leading-[0.8] uppercase",
+          "text-3xl @xs:text-5xl",
+        )}
+      >
         <div>
           <p className="text-xs">Name</p>
-          <p className="text-5xl leading-11 font-bold tracking-tight">
+          <p className={classNames("leading-[0.8] font-bold tracking-tight")}>
             {content.name}
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-6">
+        {/* <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2 last:pb-0 [&>div]:pb-4">
             <div>
               <p className="text-xs">Scientific Name</p>
-              <p className="text-3xl leading-7 font-bold tracking-tight">
+              <p
+                className={classNames(
+                  "text-3xl leading-7 font-bold tracking-tight",
+                  "md:text-xl",
+                  "lg:text-3xl",
+                )}
+              >
                 {content.scientificName}
               </p>
             </div>
@@ -96,24 +121,11 @@ function ContentBlock({ content }: { content: contentType }) {
               </p>
             </div>
           </div>
-          {/* <div className="">
-          <p>Family</p>
-          <p>{content.family?.map()}</p>
         </div> */}
-          {/* {content.location && (
-            <div className="">
-              <p className="text-xs">Location</p>
-              {content.location.map((loc) => {
-                console.log(loc, "LOCK");
-                return <p key={loc._key}></p>;
-              })}
-            </div>
-          )} */}
-        </div>
       </div>
 
       <Image
-        className="rounded-lg"
+        className="h-auto w-full rounded-lg object-cover"
         src="/images/mantis2.png"
         alt=""
         width={500}
@@ -131,4 +143,22 @@ function ContentBlock({ content }: { content: contentType }) {
       )} */}
     </div>
   );
+}
+
+{
+  /* <div className="">
+          <p>Family</p>
+          <p>{content.family?.map()}</p>
+        </div> */
+}
+{
+  /* {content.location && (
+            <div className="">
+              <p className="text-xs">Location</p>
+              {content.location.map((loc) => {
+                console.log(loc, "LOCK");
+                return <p key={loc._key}></p>;
+              })}
+            </div>
+          )} */
 }
